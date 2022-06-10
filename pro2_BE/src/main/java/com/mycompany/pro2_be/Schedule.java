@@ -10,13 +10,13 @@ package com.mycompany.pro2_be;
  */
 public class Schedule {
     public String dia;
-    public String horaI;
-    public String horaF;
+    public int horaIni;
+    public int horaFin;
 
-    public Schedule(String dia, String horaI, String horaF) {
+    public Schedule(String dia, int horaI, int horaF) {
         this.dia = dia;
-        this.horaI = horaI;
-        this.horaF = horaF;
+        this.horaIni = horaI;
+        this.horaFin = horaF;
     }
 
     public Schedule() {
@@ -31,20 +31,20 @@ public class Schedule {
         this.dia = dia;
     }
 
-    public String getHoraI() {
-        return horaI;
+    public int getHoraI() {
+        return horaIni;
     }
 
-    public void setHoraI(String horaI) {
-        this.horaI = horaI;
+    public void setHoraI(int horaI) {
+        this.horaIni = horaI;
     }
 
-    public String getHoraF() {
-        return horaF;
+    public int getHoraF() {
+        return horaFin;
     }
 
-    public void setHoraF(String horaF) {
-        this.horaF = horaF;
+    public void setHoraF(int horaF) {
+        this.horaFin = horaF;
     }
     
     
