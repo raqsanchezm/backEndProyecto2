@@ -24,7 +24,7 @@ public class Medico {
     public Medico() {
     }
 
-    public Medico(String cedula, String nombre, String password, String especi, String ubicacion, String costo, String horario, String frqCitas) {
+    public Medico(String cedula, String nombre, String password, String especi, String ubicacion, String costo, List<Schedule> horario, String frqCitas) {
         this.cedula = cedula;
         this.nombre = nombre;
         this.password = password;

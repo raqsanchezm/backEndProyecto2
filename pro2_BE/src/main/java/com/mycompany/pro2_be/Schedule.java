@@ -30,22 +30,5 @@ public class Schedule {
     public void setDia(String dia) {
         this.dia = dia;
     }
-
-    public int getHoraI() {
-        return horaIni;
-    }
-
-    public void setHoraI(int horaI) {
-        this.horaIni = horaI;
-    }
-
-    public int getHoraF() {
-        return horaFin;
-    }
-
-    public void setHoraF(int horaF) {
-        this.horaFin = horaF;
-    }
-    
     
 }
