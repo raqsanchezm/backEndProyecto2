@@ -14,6 +14,7 @@ import java.util.List;
  */
 public class Service {
     private static Service uniqueInstance;
+    ConexionBD conn = new ConexionBD();
     
     public static Service instance(){
         if (uniqueInstance == null){
@@ -31,7 +32,9 @@ public class Service {
     public Medico medicosCREATE(Medico med) throws Exception{
         if(medicos.get(med.getCedula()) != null){
             throw new Exception ("406-medico ya existe");
-        }else{
+        }else{             
+            conn.insertMed(med);
+            conn.insertarListHorario(med.getCedula(), med.getHorario());
             medicos.put(med.getCedula(), med);
             return med;
         }

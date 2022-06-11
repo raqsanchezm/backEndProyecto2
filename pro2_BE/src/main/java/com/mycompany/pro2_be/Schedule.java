@@ -21,14 +21,17 @@ public class Schedule {
 
     public Schedule() {
     }
-    
-    
+
     public String getDia() {
         return dia;
     }
 
-    public void setDia(String dia) {
-        this.dia = dia;
+    public int getHoraIni() {
+        return horaIni;
+    }
+
+    public int getHoraFin() {
+        return horaFin;
     }
     
 }

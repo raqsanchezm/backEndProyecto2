@@ -99,5 +99,10 @@ public class Medico {
         this.horario = horario;
     }
 
+    @Override
+    public String toString() {
+        return "Medico{" + "cedula=" + cedula + ", nombre=" + nombre + ", password=" + password + ", especi=" + especi + ", ubicacion=" + ubicacion + ", costo=" + costo + ", frqCitas=" + frqCitas + '}';
+    }
+
     
 }
