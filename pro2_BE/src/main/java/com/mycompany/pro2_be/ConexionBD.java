@@ -57,6 +57,24 @@ public class ConexionBD {
         }
     }
     
+    
+        public void insertPer(Persona per){
+        Connection con = null;
+        try{
+            con = ConexionMySQL.ConectarBasedeDatos1();
+            Statement statement = con.createStatement();
+        
+            statement.executeUpdate("INSERT INTO Personas(id, nombre, sexo,telefono, correo, edad)"
+             + " values ('"+per.getCedula()+"', '"+per.getNombre()+"','"+per.getSexo()+"', "+per.getTelefono()+","
+                     + " '"+per.getCorreo() +"', "+per.getEdad()+")");
+
+            con.close();
+        }catch (SQLException e) {
+            e.getSQLState();
+        }
+    }
+    
+    
     public void insertHorario(String ced, Schedule horario){
         Connection con = null;
         try{

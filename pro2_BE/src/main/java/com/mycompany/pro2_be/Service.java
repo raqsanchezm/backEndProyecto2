@@ -32,15 +32,7 @@ public class Service {
    }
         
   
-    public Persona personasCREATE(Persona per)throws Exception {
-        if (personas.get(per.getCedula())!=null){
-            throw new Exception ("406-persona ya existe");
-        }
-        else{
-            personas.put(per.getCedula(),per);
-            return per;
-        }
-    }
+   
     public List<Persona> personasREAD() {
         return new ArrayList(personas.values());
     } 
@@ -72,6 +64,17 @@ public class Service {
         }
     }
 
+    
+     public Persona personasCREATE(Persona per)throws Exception {
+        if (personas.get(per.getCedula())!=null){
+            throw new Exception ("406-persona ya existe");
+        }
+        else{
+            conn.insertPer(per);
+            personas.put(per.getCedula(),per);
+            return per;
+        }
+    }
     
     
     
