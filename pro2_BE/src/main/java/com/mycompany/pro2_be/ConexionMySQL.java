@@ -22,8 +22,8 @@ public class ConexionMySQL {
             final String Controlador = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
             Class.forName(Controlador);
             //final String url_bd = "jdbc:sqlserver://localhost:49692;databaseName=ProyectoMedicos;";
-            //final String url_bd = "jdbc:sqlserver://localhost\\MSSQLSERVER01:12980;databaseName=ProyectoMedicos;";            
-            final String url_bd = "jdbc:sqlserver://localhost:1433;databaseName=ProyectoMedicos;";
+             final String url_bd = "jdbc:sqlserver://localhost\\MSSQLSERVER01:12980;databaseName=ProyectoMedicos;";            
+            //inal String url_bd = "jdbc:sqlserver://localhost:1433;databaseName=ProyectoMedicos;";
             
             conexion = DriverManager.getConnection(url_bd, "sa", "password");
             sentencia = conexion.createStatement();

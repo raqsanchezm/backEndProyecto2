@@ -4,14 +4,11 @@
  */
 package com.mycompany.pro2_be;
 
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-/**
- *
- * @author Usuario
- */
 public class Service {
     private static Service uniqueInstance;
     ConexionBD conn = new ConexionBD();
@@ -23,18 +20,67 @@ public class Service {
         return uniqueInstance;
     }
     
+    
+    HashMap<String,Persona> personas;
     HashMap<String,Medico> medicos;
     
     private Service(){
+    
+        
+        personas=new HashMap<>();
         medicos=new HashMap<>();
+   }
+        
+  
+    public Persona personasCREATE(Persona per)throws Exception {
+        if (personas.get(per.getCedula())!=null){
+            throw new Exception ("406-persona ya existe");
+        }
+        else{
+            personas.put(per.getCedula(),per);
+            return per;
+        }
     }
+    public List<Persona> personasREAD() {
+        return new ArrayList(personas.values());
+    } 
+    
+    public Persona personasREAD(String cedula)throws Exception {
+        if (personas.get(cedula)!=null){
+            return personas.get(cedula);
+        }
+        else{
+            throw new Exception ("404-persona no existe");
+        }
+    }
+
+    public void personasUPDATE(Persona per)throws Exception {
+        if (personas.get(per.getCedula())==null){
+            throw new Exception ("404-persona no existe");
+        }
+        else{
+            personas.put(per.getCedula(), per);
+        }
+    }
+    
+    public void personasDELETE(String cedula)throws Exception {
+        if (personas.get(cedula)==null){
+            throw new Exception ("404-persona no existe");
+        }
+        else{
+            personas.remove(cedula);
+        }
+    }
+
+    
+    
     
     public Medico medicosCREATE(Medico med) throws Exception{
         if(medicos.get(med.getCedula()) != null){
             throw new Exception ("406-medico ya existe");
         }else{             
             conn.insertMed(med);
-            conn.insertarListHorario(med.getCedula(), med.getHorario());
+            conn.insertarListHorario(med.getCedula(), med.getHorario() );
             medicos.put(med.getCedula(), med);
             return med;
         }
@@ -67,4 +113,8 @@ public class Service {
             medicos.remove(cedula);
         }
     }
+
+
+  
+ 
 }
