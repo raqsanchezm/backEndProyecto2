@@ -17,10 +17,11 @@ import org.glassfish.jersey.media.multipart.MultiPartFeature;
 @ApplicationPath("api")
 public class RestConfiguration extends Application{
     @Override
-    public Set<Class<?>> getClasses(){
+    public Set<Class<?>> getClasses() {
         HashSet<Class<?>> classes = new HashSet<>();
         classes.add(MultiPartFeature.class);
-        classes.add(Medicos.class);
+        classes.add(Personas.class); 
+        classes.add(Medicos.class); 
         return classes;
-    }    
+}
 }

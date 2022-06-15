@@ -24,7 +24,7 @@ public class ConexionMySQL {
             final String url_bd = "jdbc:sqlserver://localhost\\MSSQLSERVER01:49692;databaseName=ProyectoMedicos;";   
             //final String url_bd = "jdbc:sqlserver://localhost\\MSSQLSERVER01:12980;databaseName=ProyectoMedicos;";            
             //final String url_bd = "jdbc:sqlserver://localhost:1433;databaseName=ProyectoMedicos;";
-            
+
             conexion = DriverManager.getConnection(url_bd, "sa", "password");
             sentencia = conexion.createStatement();
         } catch (ClassNotFoundException | SQLException ex) {
