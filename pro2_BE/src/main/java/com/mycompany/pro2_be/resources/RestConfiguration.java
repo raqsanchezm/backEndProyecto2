@@ -4,6 +4,7 @@
  */
 package com.mycompany.pro2_be.resources;
 
+import com.mycompany.pro2_be.ConexionBD;
 import java.util.HashSet;
 import java.util.Set;
 import javax.ws.rs.ApplicationPath;
@@ -22,6 +23,7 @@ public class RestConfiguration extends Application{
         classes.add(MultiPartFeature.class);
         classes.add(Personas.class); 
         classes.add(Medicos.class); 
+        classes.add(ConexionBD.class); 
         return classes;
 }
 }

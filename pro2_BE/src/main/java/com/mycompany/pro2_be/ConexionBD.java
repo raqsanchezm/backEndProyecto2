@@ -23,24 +23,6 @@ public class ConexionBD {
     
     /*----------------------Medicos----------------------*/
     
-//    public Medico busqMedico(double id2, String clave2){
-//        Connection con = null;
-//        Medico medicos = null;
-//        try {
-//            con = ConexionMySQL.ConectarBasedeDatos1();
-//            CallableStatement statement = con.prepareCall("SELECT * FROM Medico WHERE Medico.id = "+id2+" and Medico.clave= '"+clave2+"'");
-//            ResultSet rs = statement.executeQuery();
-//            while(rs.next()){
-//                medicos = new Medico(rs.getDouble("id"), rs.getString("clave"), rs.getString("nombre"), 3);
-//            }
-//            con.close();
-//            return medicos;
-//        } catch (SQLException e) {
-//            return null;
-//        }
-//        
-//    }
-    
     public void insertMed(Medico medi){
         Connection con = null;
         try{
@@ -50,23 +32,6 @@ public class ConexionBD {
             statement.executeUpdate("INSERT INTO Medicos(cedula, nombre, contrasenna,especi, ubicacion, costo, frqCitas)"
              + " values ('"+medi.getCedula()+"', '"+medi.getNombre()+"','"+medi.getPassword()+"', '"+medi.getEspeci()+"',"
                      + " '"+medi.getUbicacion()+"', '"+medi.getCosto() +"', '"+medi.getFrqCitas()+"')");
-
-            con.close();
-        }catch (SQLException e) {
-            e.getSQLState();
-        }
-    }
-    
-    
-        public void insertPer(Persona per){
-        Connection con = null;
-        try{
-            con = ConexionMySQL.ConectarBasedeDatos1();
-            Statement statement = con.createStatement();
-        
-            statement.executeUpdate("INSERT INTO Personas(id, nombre, sexo,telefono, correo, edad)"
-             + " values ('"+per.getCedula()+"', '"+per.getNombre()+"','"+per.getSexo()+"', "+per.getTelefono()+","
-                     + " '"+per.getCorreo() +"', "+per.getEdad()+")");
 
             con.close();
         }catch (SQLException e) {
@@ -95,44 +60,76 @@ public class ConexionBD {
             insertHorario(ced, horario.get(i));
         }
     }
-//    public Medico busqMedicoId(double id2){
-//        Connection con = null;
-//        Medico medico = null;
-//        try {
-//            con = ConexionMySQL.ConectarBasedeDatos1();
-//            CallableStatement statement = con.prepareCall("SELECT * FROM Medico WHERE Medico.id = "+id2);
-//            ResultSet rs = statement.executeQuery();
-//            while(rs.next()){
-//                medico = new Medico(rs.getDouble("id"), rs.getString("clave"), 3, rs.getString("nombre"), rs.getString("especialidad"), rs.getString("ciudad"), rs.getString("horario"), rs.getInt("frecuenciaCitas"), rs.getDouble("costo"), rs.getString("horaInicio"), rs.getString("horaFin"));
-//            }
-//            con.close();
-//            return medico;
-//        } catch (SQLException e) {
-//            return null;
-//        }
-//
-//    }
-//    
-//    public ArrayList<Medico> medicosBD(String especi, String ciudad){
-//        ArrayList<Medico> medicos = new ArrayList();
-//        Connection con = null;
-//        try {
-//            con = ConexionMySQL.ConectarBasedeDatos1();
-//            CallableStatement statement = con.prepareCall("SELECT * FROM Medico WHERE ciudad='"+ciudad+"' and especialidad='"+especi+"'");
-//            ResultSet rs = statement.executeQuery();
-//            while (rs.next()) {
-//                Medico medico;
-//                medico = new Medico(rs.getDouble("id"), rs.getString("clave"), 3, rs.getString("nombre"), rs.getString("especialidad"), rs.getString("ciudad"), rs.getString("horario"), rs.getInt("frecuenciaCitas"), rs.getDouble("costo"), rs.getString("horaInicio"), rs.getString("horaFin"));
-//                medicos.add(medico);
-//            }
-//            con.close();
-//        } catch (SQLException e) {
-//            
-//        }
-//        return medicos;
-//   }
-//    
+    public List<Schedule> getListHorario(String cedula_med){
+        Connection con = null;
+        List<Schedule> horarios = new ArrayList();
+        
+        try {
+            con = ConexionMySQL.ConectarBasedeDatos1();
+            CallableStatement statement = con.prepareCall("SELECT * FROM Horarios WHERE Horarios.cedula_med = '"+cedula_med+"'");
+            ResultSet rs = statement.executeQuery();
+            while(rs.next()){
+                Schedule horario;
+                horario = new Schedule(rs.getString("dia"), rs.getInt("horaIni"), rs.getInt("horaFin"));
+                horarios.add(horario);
+            }
+            con.close();
+            return horarios;
+        } catch (SQLException e) {
+            return null;
+        }
+
+    }
+    public Medico busqMedicoId(String id, String passw){
+        Connection con = null;
+        Medico medico = null;
+        try {
+            con = ConexionMySQL.ConectarBasedeDatos1();
+            CallableStatement statement = con.prepareCall("SELECT * FROM Medicos WHERE Medicos.cedula = '"+id +"' AND Medicos.contrasenna = '"+passw+"'");
+            ResultSet rs = statement.executeQuery();
+            while(rs.next()){
+                medico = new Medico(rs.getString("cedula"), rs.getString("nombre"), rs.getString("contrasenna"), rs.getString("especi"), rs.getString("ubicacion"), rs.getString("costo"), getListHorario(id), rs.getString("frqCitas"));
+            }
+            con.close();
+            return medico;
+        } catch (SQLException e) {
+            return null;
+        }
+    }
+        public Medico busqMedico(String id){
+        Connection con = null;
+        Medico medico = null;
+        try {
+            con = ConexionMySQL.ConectarBasedeDatos1();
+            CallableStatement statement = con.prepareCall("SELECT * FROM Medicos WHERE Medicos.cedula = '"+id+"'");
+            ResultSet rs = statement.executeQuery();
+            while(rs.next()){
+                medico = new Medico(rs.getString("cedula"), rs.getString("nombre"), rs.getString("contrasenna"), rs.getString("especi"), rs.getString("ubicacion"), rs.getString("costo"), getListHorario(id), rs.getString("frqCitas"));
+            }
+            con.close();
+            return medico;
+        } catch (SQLException e) {
+            return null;
+        }
+    }
+     
     /*----------------------Pacientes----------------------*/
+    public void insertPer(Persona per){
+        Connection con = null;
+        try{
+            con = ConexionMySQL.ConectarBasedeDatos1();
+            Statement statement = con.createStatement();
+        
+            statement.executeUpdate("INSERT INTO Personas(id, nombre, sexo,telefono, correo, edad)"
+             + " values ('"+per.getCedula()+"', '"+per.getNombre()+"','"+per.getSexo()+"', "+per.getTelefono()+","
+                     + " '"+per.getCorreo() +"', "+per.getEdad()+")");
+
+            con.close();
+        }catch (SQLException e) {
+            e.getSQLState();
+        }
+    }
+    
 //    
 //    public Paciente busqPacientePTR(double id2, String clave2){
 //        Connection con = null;

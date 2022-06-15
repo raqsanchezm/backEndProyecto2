@@ -43,17 +43,29 @@ public class Medicos {
     
     
     @GET
-    @Path("{cedula}")
+    @Path("{cedula}/{password}")
     @Produces({MediaType.APPLICATION_JSON})
-    public Medico read(@PathParam("cedula")String cedula){
+    public Medico read(@PathParam("cedula")String cedula,@PathParam("password")String password ){
         try{
-            return Service.instance().medicosREAD(cedula);
+            return Service.instance().medicosREAD(cedula, password);
         }catch (Exception ex){
             throw new NotFoundException();
         }
    
     } 
     
+//    @GET
+//    @Path("{cedula}")
+//    @Produces({MediaType.APPLICATION_JSON})
+//    public Medico read(@PathParam("cedula")String cedula,@PathParam("password")String password){
+//        try{
+//            return Service.instance().medicosREAD(cedula, password);
+//        }catch (Exception ex){
+//            throw new NotFoundException();
+//        }
+//   
+//    } 
+//    
     @PUT
     @Path("{cedula}")
     @Consumes(MediaType.APPLICATION_JSON)

@@ -31,7 +31,7 @@ public class Medico {
         this.especi = especi;
         this.ubicacion = ubicacion;
         this.costo = costo;
-        this.horario = new ArrayList<>();
+        this.horario = horario;
         this.frqCitas = frqCitas;
     }
 
@@ -101,8 +101,10 @@ public class Medico {
 
     @Override
     public String toString() {
-        return "Medico{" + "cedula=" + cedula + ", nombre=" + nombre + ", password=" + password + ", especi=" + especi + ", ubicacion=" + ubicacion + ", costo=" + costo + ", frqCitas=" + frqCitas + '}';
+        return "Medico{" + "cedula=" + cedula + ", nombre=" + nombre + ", password=" + password + ", especi=" + especi + ", ubicacion=" + ubicacion + ", costo=" + costo + ", horario=" + horario.toString() + ", frqCitas=" + frqCitas + '}';
     }
+
+    
 
     
 }

@@ -25,8 +25,6 @@ public class Service {
     HashMap<String,Medico> medicos;
     
     private Service(){
-    
-        
         personas=new HashMap<>();
         medicos=new HashMap<>();
    }
@@ -65,7 +63,7 @@ public class Service {
     }
 
     
-     public Persona personasCREATE(Persona per)throws Exception {
+    public Persona personasCREATE(Persona per)throws Exception {
         if (personas.get(per.getCedula())!=null){
             throw new Exception ("406-persona ya existe");
         }
@@ -79,12 +77,11 @@ public class Service {
     
     
     public Medico medicosCREATE(Medico med) throws Exception{
-        if(medicos.get(med.getCedula()) != null){
+        if(conn.busqMedicoId(med.getCedula(), med.getPassword()) != null){
             throw new Exception ("406-medico ya existe");
         }else{             
             conn.insertMed(med);
             conn.insertarListHorario(med.getCedula(), med.getHorario() );
-            medicos.put(med.getCedula(), med);
             return med;
         }
     }
@@ -93,9 +90,16 @@ public class Service {
         return new ArrayList(medicos.values());
     }
     
-    public Medico medicosREAD(String cedula) throws Exception{
+    /*public Medico medicosREAD(String cedula) throws Exception{
         if(medicos.get(cedula) != null){
             return medicos.get(cedula);
+        }else{
+            throw new Exception("404-Medico no existe");
+        }
+    }*/
+    public Medico medicosREAD(String cedula, String password) throws Exception{
+        if(conn.busqMedicoId(cedula, password) != null){
+            return conn.busqMedicoId(cedula, password);
         }else{
             throw new Exception("404-Medico no existe");
         }

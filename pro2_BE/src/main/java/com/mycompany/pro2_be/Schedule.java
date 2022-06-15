@@ -33,5 +33,11 @@ public class Schedule {
     public int getHoraFin() {
         return horaFin;
     }
+
+    @Override
+    public String toString() {
+        return "Schedule{" + "dia=" + dia + ", horaIni=" + horaIni + ", horaFin=" + horaFin + '}';
+    }
+    
     
 }
