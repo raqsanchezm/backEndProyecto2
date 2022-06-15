@@ -6,6 +6,11 @@ package com.mycompany.pro2_be.resources;
 
 import com.mycompany.pro2_be.Medico;
 import com.mycompany.pro2_be.Service;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -17,6 +22,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 /**
  *
@@ -24,7 +30,7 @@ import javax.ws.rs.core.MediaType;
  */
 @Path("/medicos")
 public class Medicos {
-    
+    String location="C:\\fotos\\";
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public void create(Medico med){
@@ -64,4 +70,9 @@ public class Medicos {
             throw new NotFoundException();
         }
     }
+    
+
+    
+    
+    
 }
