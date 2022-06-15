@@ -24,7 +24,7 @@ import org.glassfish.jersey.media.multipart.FormDataParam;
 
 @Path("/personas")
 public class Personas {
-    String location="C:\\fotos\\";
+    String location="C:\\Users\\Usuario\\Pictures\\Screenshots\\";
     
     @POST
     @Consumes(MediaType.APPLICATION_JSON) 
