@@ -31,7 +31,7 @@ import org.glassfish.jersey.media.multipart.FormDataParam;
  */
 @Path("/medicos")
 public class Medicos {
-    String location="C:\\Users\\Usuario\\Documents\\NetBeansProjects\\Proyecto2\\Proyecto2\\src\\main\\webapp\\pics\\";
+    String location="C:\\Users\\Usuario\\Pictures\\Screenshots\\";
     
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
@@ -75,7 +75,7 @@ public class Medicos {
     
     @GET
     @Path("{cedula}/imagen")
-    @Produces("image/jpg") 
+    @Produces("image/png") 
     public Response getImage(@PathParam("cedula") String cedula) throws IOException{
         File file = new File(location+cedula);
         Response.ResponseBuilder response = Response.ok((Object) file);
