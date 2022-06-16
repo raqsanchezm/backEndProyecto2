@@ -31,7 +31,7 @@ import org.glassfish.jersey.media.multipart.FormDataParam;
  */
 @Path("/medicos")
 public class Medicos {
-    String location="C:\\Users\\Usuario\\Pictures\\Screenshots\\";
+    String location = "D:\\Pictures\\ImagenesProyecto\\";
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
@@ -51,7 +51,7 @@ public class Medicos {
     
     
     @GET
-    @Path("{cedula}/{password}")
+    @Path("/{cedula}/{password}/")
     @Produces({MediaType.APPLICATION_JSON})
     public Medico read(@PathParam("cedula")String cedula,@PathParam("password")String password ){
         try{
