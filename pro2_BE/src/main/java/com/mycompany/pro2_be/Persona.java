@@ -8,16 +8,17 @@ package com.mycompany.pro2_be;
         String telefono;
         String correo;
         String edad;
-
+        String cedula_med;
     
     
-    public Persona(String cedula, String nombre, String sexo, String telefono, String correo, String edad) {
+    public Persona(String cedula, String nombre, String sexo, String telefono, String correo, String edad, String cedula_med) {
         this.cedula = cedula;
         this.nombre = nombre;
         this.sexo = sexo;
         this.telefono = telefono;
         this.correo = correo;
         this.edad = edad;
+        this.cedula_med = cedula_med;
     }
     
     public String getTelefono() {
@@ -70,6 +71,11 @@ package com.mycompany.pro2_be;
 
     public void setSexo(String Sexo) {
         this.sexo = Sexo;
+    }
+
+    @Override
+    public String toString() {
+        return "Persona{" + "cedula=" + cedula + ", nombre=" + nombre + ", sexo=" + sexo + ", telefono=" + telefono + ", correo=" + correo + ", edad=" + edad + ", cedula_med=" + cedula_med + '}';
     }
     
     

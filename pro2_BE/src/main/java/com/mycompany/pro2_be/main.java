@@ -13,9 +13,8 @@ import java.util.List;
 public class main {
     public static void main(String[] args) {
         ConexionBD conn = new ConexionBD();
-        Medico med = conn.busqMedicoId("12", "12");
-        System.out.println(med.toString());
-        System.out.println(med.getHorario().toString());
+        List<Persona> pacientes = conn.getPacXMedico("1");
+        System.out.println(pacientes.toString());
         //System.out.println(horarios);
     }
 }

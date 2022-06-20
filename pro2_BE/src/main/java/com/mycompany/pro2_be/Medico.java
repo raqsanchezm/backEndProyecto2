@@ -20,11 +20,12 @@ public class Medico {
     String costo;
     List<Schedule> horario;
     String frqCitas;
+    String estado;
 
     public Medico() {
     }
 
-    public Medico(String cedula, String nombre, String password, String especi, String ubicacion, String costo, List<Schedule> horario, String frqCitas) {
+    public Medico(String cedula, String nombre, String password, String especi, String ubicacion, String costo, List<Schedule> horario, String frqCitas, String estado) {
         this.cedula = cedula;
         this.nombre = nombre;
         this.password = password;
@@ -33,7 +34,8 @@ public class Medico {
         this.costo = costo;
         this.horario = horario;
         this.frqCitas = frqCitas;
-    }
+        this.estado = estado;
+    }   
 
     public String getCedula() {
         return cedula;
@@ -99,12 +101,17 @@ public class Medico {
         this.horario = horario;
     }
 
-    @Override
-    public String toString() {
-        return "Medico{" + "cedula=" + cedula + ", nombre=" + nombre + ", password=" + password + ", especi=" + especi + ", ubicacion=" + ubicacion + ", costo=" + costo + ", horario=" + horario.toString() + ", frqCitas=" + frqCitas + '}';
+    public String getEstado() {
+        return estado;
     }
 
-    
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
 
+    @Override
+    public String toString() {
+        return "Medico{" + "cedula=" + cedula + ", nombre=" + nombre + ", password=" + password + ", especi=" + especi + ", ubicacion=" + ubicacion + ", costo=" + costo + ", horario=" + horario + ", frqCitas=" + frqCitas + ", estado=" + estado + '}';
+    }
     
 }

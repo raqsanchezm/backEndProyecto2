@@ -78,7 +78,6 @@ public class ConexionBD {
         } catch (SQLException e) {
             return null;
         }
-
     }
     public Medico busqMedicoId(String id, String passw){
         Connection con = null;
@@ -88,7 +87,7 @@ public class ConexionBD {
             CallableStatement statement = con.prepareCall("SELECT * FROM Medicos WHERE Medicos.cedula = '"+id +"' AND Medicos.contrasenna = '"+passw+"'");
             ResultSet rs = statement.executeQuery();
             while(rs.next()){
-                medico = new Medico(rs.getString("cedula"), rs.getString("nombre"), rs.getString("contrasenna"), rs.getString("especi"), rs.getString("ubicacion"), rs.getString("costo"), getListHorario(id), rs.getString("frqCitas"));
+                medico = new Medico(rs.getString("cedula"), rs.getString("nombre"), rs.getString("contrasenna"), rs.getString("especi"), rs.getString("ubicacion"), rs.getString("costo"), getListHorario(id), rs.getString("frqCitas"), rs.getString("estado"));
             }
             con.close();
             return medico;
@@ -104,7 +103,7 @@ public class ConexionBD {
             CallableStatement statement = con.prepareCall("SELECT * FROM Medicos WHERE Medicos.cedula = '"+id+"'");
             ResultSet rs = statement.executeQuery();
             while(rs.next()){
-                medico = new Medico(rs.getString("cedula"), rs.getString("nombre"), rs.getString("contrasenna"), rs.getString("especi"), rs.getString("ubicacion"), rs.getString("costo"), getListHorario(id), rs.getString("frqCitas"));
+                medico = new Medico(rs.getString("cedula"), rs.getString("nombre"), rs.getString("contrasenna"), rs.getString("especi"), rs.getString("ubicacion"), rs.getString("costo"), getListHorario(id), rs.getString("frqCitas"), rs.getString("estado"));
             }
             con.close();
             return medico;
@@ -112,7 +111,20 @@ public class ConexionBD {
             return null;
         }
     }
-     
+        
+    public void updateMed(String id){
+        Connection con = null;
+        try{
+            con = ConexionMySQL.ConectarBasedeDatos1();
+            Statement statement = con.createStatement();
+        
+            statement.executeUpdate("UPDATE Medico SET estado='activo' WHERE id='"+id+"'");
+
+            con.close();
+        }catch (SQLException e) {
+            e.getSQLState();
+        }
+    }
     /*----------------------Pacientes----------------------*/
     public void insertPer(Persona per){
         Connection con = null;
@@ -127,6 +139,26 @@ public class ConexionBD {
             con.close();
         }catch (SQLException e) {
             e.getSQLState();
+        }
+    }
+    
+    public List<Persona> getPacXMedico(String cedula_med){
+        Connection con = null;
+        List<Persona> pacientes = new ArrayList();
+        
+        try {
+            con = ConexionMySQL.ConectarBasedeDatos1();
+            CallableStatement statement = con.prepareCall("SELECT * FROM Personas WHERE Personas.cedula_med = '"+cedula_med+"'");
+            ResultSet rs = statement.executeQuery();
+            while(rs.next()){
+                Persona paciente;
+                paciente = new Persona(rs.getString("id"), rs.getString("nombre"), rs.getString("sexo"), rs.getString("telefono"), rs.getString("correo"), rs.getString("edad"), rs.getString("cedula_med"));
+                pacientes.add(paciente);
+            }
+            con.close();
+            return pacientes;
+        } catch (SQLException e) {
+            return null;
         }
     }
     
@@ -183,18 +215,6 @@ public class ConexionBD {
 //        
 //    }
     
-    public void updateMed(String id){
-        Connection con = null;
-        try{
-            con = ConexionMySQL.ConectarBasedeDatos1();
-            Statement statement = con.createStatement();
-        
-            statement.executeUpdate("UPDATE Medico SET estado='activo' WHERE id='"+id+"'");
-
-            con.close();
-        }catch (SQLException e) {
-            e.getSQLState();
-        }
-    }
+  
     
 }
