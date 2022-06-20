@@ -51,7 +51,7 @@ public class Medicos {
     
     
     @GET
-    @Path("/{cedula}/{password}/")
+    @Path("/{cedula}/{password}")
     @Produces({MediaType.APPLICATION_JSON})
     public Medico read(@PathParam("cedula")String cedula,@PathParam("password")String password ){
         try{
