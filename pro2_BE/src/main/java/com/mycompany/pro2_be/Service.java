@@ -43,6 +43,15 @@ public class Service {
             throw new Exception ("404-persona no existe");
         }
     }
+    
+    public List<Persona> personasMedicosREAD(String cedula_med)throws Exception {
+        if (!conn.getPacXMedico(cedula_med).isEmpty()){
+            return conn.getPacXMedico(cedula_med);
+        }
+        else{
+            throw new Exception ("404-persona no existe");
+        }
+    }
 
     public void personasUPDATE(Persona per)throws Exception {
         if (personas.get(per.getCedula())==null){

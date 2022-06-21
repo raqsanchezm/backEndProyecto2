@@ -29,10 +29,9 @@ public class ConexionBD {
             con = ConexionMySQL.ConectarBasedeDatos1();
             Statement statement = con.createStatement();
         
-            statement.executeUpdate("INSERT INTO Medicos(cedula, nombre, contrasenna,especi, ubicacion, costo, frqCitas)"
+            statement.executeUpdate("INSERT INTO Medicos(cedula, nombre, contrasenna,especi, ubicacion, costo, frqCitas, estado)"
              + " values ('"+medi.getCedula()+"', '"+medi.getNombre()+"','"+medi.getPassword()+"', '"+medi.getEspeci()+"',"
-                     + " '"+medi.getUbicacion()+"', '"+medi.getCosto() +"', '"+medi.getFrqCitas()+"')");
-
+                     + " '"+medi.getUbicacion()+"', '"+medi.getCosto() +"', '"+medi.getFrqCitas()+"', 'Inactivo')");
             con.close();
         }catch (SQLException e) {
             e.getSQLState();
@@ -145,7 +144,6 @@ public class ConexionBD {
     public List<Persona> getPacXMedico(String cedula_med){
         Connection con = null;
         List<Persona> pacientes = new ArrayList();
-        
         try {
             con = ConexionMySQL.ConectarBasedeDatos1();
             CallableStatement statement = con.prepareCall("SELECT * FROM Personas WHERE Personas.cedula_med = '"+cedula_med+"'");

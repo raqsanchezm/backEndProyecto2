@@ -55,12 +55,23 @@ public class Personas {
         return Service.instance().personasREAD();
     }     
     
-    @GET
+    /*@GET
     @Path("{cedula}")
     @Produces({MediaType.APPLICATION_JSON})
-    public Persona read(@PathParam("cedula") String cedula) {
+    public Persona read(@PathParam("cedula_med") String cedula_med) {
         try {
-            return Service.instance().personasREAD(cedula);
+            return Service.instance().personasREAD(cedula_med);
+        } catch (Exception ex) {
+            throw new NotFoundException(); 
+        }
+    }*/
+    
+    @GET
+    @Path("/{cedula_med}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public List<Persona> read(@PathParam("cedula_med") String cedula_med) {
+        try {
+            return Service.instance().personasMedicosREAD(cedula_med);
         } catch (Exception ex) {
             throw new NotFoundException(); 
         }
