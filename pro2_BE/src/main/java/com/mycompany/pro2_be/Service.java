@@ -83,6 +83,14 @@ public class Service {
         }
     }
     
+    public void citasCREATE(Cita c)throws Exception {
+        if (conn.busqCita(c) != null){
+            throw new Exception ("406-cita ya existe");
+        }
+        else{
+            conn.insertCitas(c); 
+        }
+    }
     
     
     public Medico medicosCREATE(Medico med) throws Exception{

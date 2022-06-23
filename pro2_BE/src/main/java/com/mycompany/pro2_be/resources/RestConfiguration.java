@@ -23,6 +23,7 @@ public class RestConfiguration extends Application{
         classes.add(MultiPartFeature.class);
         classes.add(Personas.class); 
         classes.add(Medicos.class); 
+        classes.add(Citas.class); 
         classes.add(ConexionBD.class); 
         return classes;
 }

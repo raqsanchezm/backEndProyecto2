@@ -159,41 +159,8 @@ public class ConexionBD {
             return null;
         }
     }
-    
-//    
-//    public Paciente busqPacientePTR(double id2, String clave2){
-//        Connection con = null;
-//        Paciente paciente = null;
-//        try {
-//            con = ConexionMySQL.ConectarBasedeDatos1();
-//            CallableStatement statement = con.prepareCall("SELECT * FROM Pacientes WHERE Pacientes.id = "+id2+" and Pacientes.clave= '"+clave2+"'");
-//            ResultSet rs = statement.executeQuery();
-//            while(rs.next()){
-//              paciente = new Paciente(rs.getDouble("id"), rs.getString("clave"), rs.getString("nombre"), 2);
-//            }
-//            con.close();
-//            return paciente;
-//        } catch (SQLException e) {
-//            return null;
-//       }
-//        
-//    }
- 
-//    public void insertPac(Paciente paci){
-//        Connection con = null;
-//        try{
-//            con = ConexionMySQL.ConectarBasedeDatos1();
-//            Statement statement = con.createStatement();
-//        
-//            statement.executeUpdate("INSERT INTO Pacientes(id, clave, nombre) values ("+paci.getID()+", '"+paci.getClave()+"', '"+paci.getNombre()+"')");
-//            
-//            con.close();
-//        }catch (SQLException e) {
-//            e.getSQLState();
-//        }
-//    }
-    
-    /*----------------------Administrador----------------------*/
+
+    /*----------------------Citas----------------------*/
     
 //    public boolean busqAdmi(double id2, String clave2){
 //        Connection con = null;
@@ -212,7 +179,34 @@ public class ConexionBD {
 //        }
 //        
 //    }
+    public void insertCitas(Cita cita){
+        Connection con = null;
+        try{
+            con = ConexionMySQL.ConectarBasedeDatos1();
+            Statement statement = con.createStatement();
+        
+            statement.executeUpdate("INSERT INTO Citas(idPac, idMed, dia, hora, minn) values('"+cita.getIdPac()+"', '"+cita.getIdMed()+"', '"+cita.getDia()+"', '"+cita.getHora()+"', '"+cita.getMinn()+"')");
+            con.close();
+        }catch (SQLException e) {
+            e.getSQLState();
+        }
+    }
     
-  
+    public Cita busqCita(Cita cita){
+        Connection con = null;
+        Cita citaC = null;
+        try {
+            con = ConexionMySQL.ConectarBasedeDatos1();
+            CallableStatement statement = con.prepareCall("SELECT * FROM Citas WHERE Citas.idPac = '"+cita.getIdPac()+"' AND Citas.idMed='"+cita.getIdMed()+"' AND Citas.dia='"+cita.getDia()+"' AND Citas.hora='"+cita.getHora()+"' AND Citas.minn='"+cita.getMinn()+"'");
+            ResultSet rs = statement.executeQuery();
+            while(rs.next()){
+                citaC = new Cita(rs.getString("idPac"), rs.getString("idMed"), rs.getString("dia"), rs.getString("hora"), rs.getString("minn"));
+            }
+            con.close();
+            return citaC;
+        } catch (SQLException e) {
+            return null;
+        }
+    }
     
 }
