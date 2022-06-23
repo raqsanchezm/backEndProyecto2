@@ -134,9 +134,9 @@ public class ConexionBD {
             con = ConexionMySQL.ConectarBasedeDatos1();
             Statement statement = con.createStatement();
         
-            statement.executeUpdate("INSERT INTO Personas(id, nombre, sexo,telefono, correo, edad)"
+            statement.executeUpdate("INSERT INTO Personas(id, nombre, sexo,telefono, correo, edad, cedula_med)"
              + " values ('"+per.getCedula()+"', '"+per.getNombre()+"','"+per.getSexo()+"', "+per.getTelefono()+","
-                     + " '"+per.getCorreo() +"', "+per.getEdad()+")");
+                     + " '"+per.getCorreo() +"', "+per.getEdad()+", '"+per.getCedula_med()+"')");
 
             con.close();
         }catch (SQLException e) {
