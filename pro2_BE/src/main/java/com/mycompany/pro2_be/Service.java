@@ -124,8 +124,6 @@ public class Service {
     
       
     
-    
-  
 
       public void medicosUpdateEstado(String cedula)throws Exception {
         if (conn.busqMedico(cedula) != null){
