@@ -25,6 +25,14 @@ package com.mycompany.pro2_be;
         return telefono;
     }
 
+    public String getCedula_med() {
+        return cedula_med;
+    }
+
+    public void setCedula_med(String cedula_med) {
+        this.cedula_med = cedula_med;
+    }
+
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }

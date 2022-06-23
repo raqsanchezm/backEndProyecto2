@@ -111,19 +111,22 @@ public class ConexionBD {
         }
     }
         
-    public void updateMed(String id){
+    public void updateMed(String cedula){
         Connection con = null;
         try{
             con = ConexionMySQL.ConectarBasedeDatos1();
             Statement statement = con.createStatement();
         
-            statement.executeUpdate("UPDATE Medico SET estado='activo' WHERE id='"+id+"'");
+            statement.executeUpdate("UPDATE Medicos SET estado='Activo' WHERE cedula='"+cedula+"'");
 
             con.close();
         }catch (SQLException e) {
             e.getSQLState();
         }
     }
+    
+      
+    
     /*----------------------Pacientes----------------------*/
     public void insertPer(Persona per){
         Connection con = null;
@@ -131,9 +134,9 @@ public class ConexionBD {
             con = ConexionMySQL.ConectarBasedeDatos1();
             Statement statement = con.createStatement();
         
-            statement.executeUpdate("INSERT INTO Personas(id, nombre, sexo,telefono, correo, edad)"
+            statement.executeUpdate("INSERT INTO Personas(id, nombre, sexo,telefono, correo, edad, cedula_med)"
              + " values ('"+per.getCedula()+"', '"+per.getNombre()+"','"+per.getSexo()+"', "+per.getTelefono()+","
-                     + " '"+per.getCorreo() +"', "+per.getEdad()+")");
+                     + " '"+per.getCorreo() +"', "+per.getEdad()+", '"+per.getCedula_med()+"')");
 
             con.close();
         }catch (SQLException e) {
@@ -159,26 +162,28 @@ public class ConexionBD {
             return null;
         }
     }
+    
+      public List<Medico> getMedicos(){
+        Connection con = null;
+        List<Medico> medicos = new ArrayList();
+        try {
+            con = ConexionMySQL.ConectarBasedeDatos1();
+            CallableStatement statement = con.prepareCall("SELECT * FROM Medicos WHERE Medicos.estado = 'Inactivo'");
+            ResultSet rs = statement.executeQuery();
+            while(rs.next()){
+                Medico medico;
+                medico = new Medico(rs.getString("cedula"), rs.getString("nombre"), rs.getString("contrasenna"), rs.getString("especi"), rs.getString("ubicacion"), rs.getString("costo"), rs.getString("frqCitas"), rs.getString("estado"));
+                medicos.add(medico);
+            }
+            con.close();
+            return medicos;
+        } catch (SQLException e) {
+            return null;
+        }
+    }
 
     /*----------------------Citas----------------------*/
     
-//    public boolean busqAdmi(double id2, String clave2){
-//        Connection con = null;
-//        Administrador administrador = null;
-//        try {
-//            con = ConexionMySQL.ConectarBasedeDatos1();
-//            CallableStatement statement = con.prepareCall("SELECT * FROM Admi WHERE id = "+id2+" and clave= '"+clave2+"'");
-//            ResultSet rs = statement.executeQuery();
-//            while(rs.next()){
-//                administrador = new Administrador(rs.getDouble("id"), rs.getString("clave"), 1);
-//            }
-//            con.close();
-//            return administrador != null;
-//        } catch (Exception e) {
-//            return false;
-//        }
-//        
-//    }
     public void insertCitas(Cita cita){
         Connection con = null;
         try{

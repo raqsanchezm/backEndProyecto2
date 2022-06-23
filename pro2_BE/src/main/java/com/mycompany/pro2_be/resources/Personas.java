@@ -24,7 +24,8 @@ import org.glassfish.jersey.media.multipart.FormDataParam;
 
 @Path("/personas")
 public class Personas {
-    String location="C:\\Users\\Usuario\\Pictures\\Screenshots\\";
+    String location="C:\\fotos";
+    String docs="C:\\fotos";
     
     @POST
     @Consumes(MediaType.APPLICATION_JSON) 
@@ -106,5 +107,32 @@ public class Personas {
             throw new NotFoundException(); 
         }
     }
+    
+    
+
+        @POST
+        @Consumes(MediaType.MULTIPART_FORM_DATA)
+        @Path("{cedula}/pdf")
+        public void addPdf(@PathParam("cedula") String cedula, @FormDataParam("pdf") InputStream in) {
+        try{
+        OutputStream out = new FileOutputStream(new File(docs + cedula));
+        in.transferTo(out);
+        out.close();
+        } catch (Exception ex) {
+        throw new NotAcceptableException();
+        }
+        }
+        @GET
+        @Path("{cedula}/pdf")
+        @Produces("application/pdf")
+        public Response getPdf(@PathParam("cedula") String cedula) throws IOException {
+        File file = new File(docs+cedula);
+        Response.ResponseBuilder response = Response.ok((Object) file);
+        return response.build();
+        }
+
+
+    
+    
   
 }

@@ -35,6 +35,12 @@ public class Service {
         return new ArrayList(personas.values());
     } 
     
+    
+        public List<Medico> medicosREAD() {
+        return new ArrayList(medicos.values());
+    } 
+    
+    
     public Persona personasREAD(String cedula)throws Exception {
         if (personas.get(cedula)!=null){
             return personas.get(cedula);
@@ -52,6 +58,18 @@ public class Service {
             throw new Exception ("404-persona no existe");
         }
     }
+    
+
+     public List<Medico> MedicosREADL()throws Exception {
+        if (!conn.getMedicos().isEmpty()){
+            return conn.getMedicos();
+        }
+        else{
+            throw new Exception ("404-medico no existe");
+        }
+    }
+    
+    
 
     public void personasUPDATE(Persona per)throws Exception {
         if (personas.get(per.getCedula())==null){
@@ -81,7 +99,7 @@ public class Service {
             personas.put(per.getCedula(),per);
             return per;
         }
-    }
+    } 
     
     public void citasCREATE(Cita c)throws Exception {
         if (conn.busqCita(c) != null){
@@ -103,9 +121,22 @@ public class Service {
         }
     }
     
-    public List<Medico> medicosREAD(){
-        return new ArrayList(medicos.values());
+      
+    
+
+      public void medicosUpdateEstado(String cedula)throws Exception {
+        if (conn.busqMedico(cedula) != null){
+             conn.updateMed(cedula);
+        }
+        else{
+          
+           throw new Exception ("406-medico ya existe");
+        }
     }
+    
+    
+    
+
     
     /*public Medico medicosREAD(String cedula) throws Exception{
         if(medicos.get(cedula) != null){
@@ -122,13 +153,7 @@ public class Service {
         }
     }
     
-    public void medicosUPDATE(Medico med) throws Exception{
-        if(medicos.get(med.getCedula()) == null){
-            throw new Exception("404-Medico no existe");
-        }else{
-            medicos.put(med.getCedula(), med);
-        }
-    }
+ 
     
     public void medicosDELETE(String cedula) throws Exception{
         if(medicos.get(cedula) == null){
@@ -146,7 +171,4 @@ public class Service {
         }
     }
 
-
-  
- 
 }
