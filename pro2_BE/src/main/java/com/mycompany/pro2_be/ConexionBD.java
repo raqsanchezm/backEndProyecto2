@@ -111,19 +111,22 @@ public class ConexionBD {
         }
     }
         
-    public void updateMed(String id){
+    public void updateMed(String cedula){
         Connection con = null;
         try{
             con = ConexionMySQL.ConectarBasedeDatos1();
             Statement statement = con.createStatement();
         
-            statement.executeUpdate("UPDATE Medico SET estado='activo' WHERE id='"+id+"'");
+            statement.executeUpdate("UPDATE Medicos SET estado='Activo' WHERE cedula='"+cedula+"'");
 
             con.close();
         }catch (SQLException e) {
             e.getSQLState();
         }
     }
+    
+      
+    
     /*----------------------Pacientes----------------------*/
     public void insertPer(Persona per){
         Connection con = null;
@@ -159,6 +162,29 @@ public class ConexionBD {
             return null;
         }
     }
+    
+      public List<Medico> getMedicos(){
+        Connection con = null;
+        List<Medico> medicos = new ArrayList();
+        try {
+            con = ConexionMySQL.ConectarBasedeDatos1();
+            CallableStatement statement = con.prepareCall("SELECT * FROM Medicos WHERE Medicos.estado = 'Inactivo'");
+            ResultSet rs = statement.executeQuery();
+            while(rs.next()){
+                Medico medico;
+                medico = new Medico(rs.getString("cedula"), rs.getString("nombre"), rs.getString("contrasenna"), rs.getString("especi"), rs.getString("ubicacion"), rs.getString("costo"), rs.getString("frqCitas"), rs.getString("estado"));
+                medicos.add(medico);
+            }
+            con.close();
+            return medicos;
+        } catch (SQLException e) {
+            return null;
+        }
+    }
+    
+    
+    
+    
     
 //    
 //    public Paciente busqPacientePTR(double id2, String clave2){

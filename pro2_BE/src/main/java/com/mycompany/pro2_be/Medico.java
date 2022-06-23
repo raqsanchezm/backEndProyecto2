@@ -22,6 +22,21 @@ public class Medico {
     String frqCitas;
     String estado;
 
+    public Medico(String cedula, String nombre, String password, String especi, String ubicacion, String costo, String frqCitas, String estado) {
+        this.cedula = cedula;
+        this.nombre = nombre;
+        this.password = password;
+        this.especi = especi;
+        this.ubicacion = ubicacion;
+        this.costo = costo;
+        this.frqCitas = frqCitas;
+        this.estado = estado;
+    }
+
+    
+    
+    
+    
     public Medico() {
     }
 

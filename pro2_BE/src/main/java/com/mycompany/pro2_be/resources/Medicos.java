@@ -5,6 +5,7 @@
 package com.mycompany.pro2_be.resources;
 
 import com.mycompany.pro2_be.Medico;
+import com.mycompany.pro2_be.Persona;
 import com.mycompany.pro2_be.Service;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -31,7 +32,7 @@ import org.glassfish.jersey.media.multipart.FormDataParam;
  */
 @Path("/medicos")
 public class Medicos {
-    String location = "D:\\Pictures\\ImagenesProyecto\\";
+    String location = "C:\\fotos";
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
@@ -43,12 +44,7 @@ public class Medicos {
          }
     }
     
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<Medico> read(){
-        return Service.instance().medicosREAD();
-    }
-    
+       
     
     @GET
     @Path("/{cedula}/{password}")
@@ -62,25 +58,41 @@ public class Medicos {
    
     } 
     
+    
+    
 //    @GET
-//    @Path("{cedula}")
+//    @Path("/medicos/{cedula}")
 //    @Produces({MediaType.APPLICATION_JSON})
-//    public Medico read(@PathParam("cedula")String cedula,@PathParam("password")String password){
-//        try{
-//            return Service.instance().medicosREAD(cedula, password);
-//        }catch (Exception ex){
-//            throw new NotFoundException();
+//    public List<Medico> readI() {
+//        try {
+//            return Service.instance().MedicosREADL();
+//        } catch (Exception ex) {
+//            throw new NotFoundException(); 
 //        }
-//   
-//    } 
-//    
-    @PUT
-    @Path("{cedula}")
+//    }
+    
+    
+
+    
+    
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    public List<Medico> readl() {
+        try {
+            return Service.instance().MedicosREADL();
+        } catch (Exception ex) {
+            throw new NotFoundException(); 
+        }
+    }
+    
+    
+    @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public void update(@PathParam("cedula")String cedula, Medico med){
-        try{
-            Service.instance().medicosUPDATE(med);
-        }catch(Exception ex){
+    @Path("{cedula}/update")
+    public void update(@PathParam("cedula")String cedula) {
+        try {
+           Service.instance().medicosUpdateEstado(cedula);
+        } catch (Exception ex) {
             throw new NotFoundException();
         }
     }

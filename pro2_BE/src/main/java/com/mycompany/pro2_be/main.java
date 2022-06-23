@@ -15,6 +15,9 @@ public class main {
         ConexionBD conn = new ConexionBD();
         List<Persona> pacientes = conn.getPacXMedico("1");
         System.out.println(pacientes.toString());
+
+        
+        
         //System.out.println(horarios);
     }
 }
