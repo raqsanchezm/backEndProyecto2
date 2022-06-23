@@ -138,6 +138,14 @@ public class Service {
         }
     }
 
+    public List<Cita> citasREAD(String cedula) throws Exception {
+        if(conn.getCitasXMedico(cedula) != null){
+            return conn.getCitasXMedico(cedula);
+        }else{
+            throw new Exception("404-Medico no existe");
+        }
+    }
+
 
   
  

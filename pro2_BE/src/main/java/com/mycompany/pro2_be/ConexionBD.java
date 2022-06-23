@@ -209,4 +209,23 @@ public class ConexionBD {
         }
     }
     
+    public List<Cita> getCitasXMedico(String cedula_med){
+        Connection con = null;
+        List<Cita> citas = new ArrayList();
+        try {
+            con = ConexionMySQL.ConectarBasedeDatos1();
+            CallableStatement statement = con.prepareCall("SELECT * FROM Citas WHERE Citas.idMed = '"+cedula_med+"'");
+            ResultSet rs = statement.executeQuery();
+            while(rs.next()){
+                Cita cita;
+                cita = new Cita(rs.getString("idPac"), rs.getString("idMed"), rs.getString("dia"), rs.getString("hora"), rs.getString("minn"));
+                citas.add(cita);
+            }
+            con.close();
+            return citas;
+        } catch (SQLException e) {
+            return null;
+        }
+    }
+    
 }

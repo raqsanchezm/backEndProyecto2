@@ -17,7 +17,9 @@ public class main {
 //        conn.insertCitas(cita);
         
         Cita cita2 = conn.busqCita(cita);
-        System.out.println(cita2.toString());
+       
+        List<Cita> citas = conn.getCitasXMedico("1");
+         System.out.println(citas.toString());
         //System.out.println(horarios);
     }
 }
