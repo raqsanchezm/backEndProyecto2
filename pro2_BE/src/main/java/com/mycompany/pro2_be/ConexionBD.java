@@ -190,7 +190,7 @@ public class ConexionBD {
             con = ConexionMySQL.ConectarBasedeDatos1();
             Statement statement = con.createStatement();
         
-            statement.executeUpdate("INSERT INTO Citas(idPac, idMed, dia, hora, minn) values('"+cita.getIdPac()+"', '"+cita.getIdMed()+"', '"+cita.getDia()+"', '"+cita.getHora()+"', '"+cita.getMinn()+"')");
+            statement.executeUpdate("INSERT INTO Citas(idPac, idMed, dia, hora, minn, estado) values('"+cita.getIdPac()+"', '"+cita.getIdMed()+"', '"+cita.getDia()+"', '"+cita.getHora()+"', '"+cita.getMinn()+"', 'Pendiente')");
             con.close();
         }catch (SQLException e) {
             e.getSQLState();
@@ -233,4 +233,16 @@ public class ConexionBD {
         }
     }
     
+    public void deleteCitas(Cita cita){
+        Connection con = null;
+        try{
+            con = ConexionMySQL.ConectarBasedeDatos1();
+            Statement statement = con.createStatement();
+        
+            statement.executeUpdate("DELETE FROM Citas WHERE Citas.dia='"+cita.getDia()+"' AND Citas.idPac='"+cita.getIdPac()+"' AND Citas.hora='"+cita.getHora()+"' AND Citas.minn= '"+cita.getMinn()+"'");
+            con.close();
+        }catch (SQLException e) {
+            e.getSQLState();
+        }
+    }
 }

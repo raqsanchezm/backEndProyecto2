@@ -15,7 +15,8 @@ public class main {
         ConexionBD conn = new ConexionBD();
         List<Persona> pacientes = conn.getPacXMedico("1");
         System.out.println(pacientes.toString());
-
+        Cita cita = new Cita("11", "1", "Jueves", "9", "0");
+        conn.insertCitas(cita);
         
         
         //System.out.println(horarios);

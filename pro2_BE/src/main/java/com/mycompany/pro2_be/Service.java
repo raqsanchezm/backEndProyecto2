@@ -110,7 +110,6 @@ public class Service {
         }
     }
     
-    
     public Medico medicosCREATE(Medico med) throws Exception{
         if(conn.busqMedicoId(med.getCedula(), med.getPassword()) != null){
             throw new Exception ("406-medico ya existe");
@@ -167,6 +166,13 @@ public class Service {
             return conn.getCitasXMedico(cedula);
         }else{
             throw new Exception("404-Medico no existe");
+        }
+    }
+    public void citasDelete(Cita c) throws Exception {
+        if(conn.busqCita(c) == null){
+            throw new Exception("404-Medico no existe");
+        }else{
+           conn.deleteCitas(c);
         }
     }
 

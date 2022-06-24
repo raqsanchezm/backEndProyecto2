@@ -16,6 +16,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -29,6 +30,17 @@ public class Citas {
     public void create(Cita c) {  
         try {
             Service.instance().citasCREATE(c);
+        } catch (Exception ex) {
+            throw new NotAcceptableException(); 
+        }
+    }
+    @POST
+    @Path("/{dia}/{idPac}/{hora}/{minn}/{idMec}/delete")
+    @Consumes(MediaType.APPLICATION_JSON) 
+    public void deleteCita(@PathParam("dia")String dia, @PathParam("idPac")String idPac, @PathParam("hora")String hora, @PathParam("minn")String minn, @PathParam("idMec")String idMec) {  
+        try {
+            Cita c = new Cita(idPac,idMec, dia, hora, minn);
+            Service.instance().citasDelete(c);
         } catch (Exception ex) {
             throw new NotAcceptableException(); 
         }
