@@ -165,14 +165,22 @@ public class Service {
         if(conn.getCitasXMedico(cedula) != null){
             return conn.getCitasXMedico(cedula);
         }else{
-            throw new Exception("404-Medico no existe");
+            throw new Exception("405-Medico no existe");
         }
     }
     public void citasDelete(Cita c) throws Exception {
-        if(conn.busqCita(c) == null){
+        if(conn.busqCitaXEstado(c) == null){
             throw new Exception("404-Medico no existe");
         }else{
            conn.deleteCitas(c);
+        }
+    }
+    
+    public void citasUpdate(Cita c) throws Exception {
+        if(conn.busqCitaXEstado(c) == null){
+            throw new Exception("404-Medico no existe");
+        }else{
+           conn.updateCitas(c);
         }
     }
 

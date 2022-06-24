@@ -202,10 +202,10 @@ public class ConexionBD {
         Cita citaC = null;
         try {
             con = ConexionMySQL.ConectarBasedeDatos1();
-            CallableStatement statement = con.prepareCall("SELECT * FROM Citas WHERE Citas.idPac = '"+cita.getIdPac()+"' AND Citas.idMed='"+cita.getIdMed()+"' AND Citas.dia='"+cita.getDia()+"' AND Citas.hora='"+cita.getHora()+"' AND Citas.minn='"+cita.getMinn()+"'");
+            CallableStatement statement = con.prepareCall("SELECT * FROM Citas WHERE Citas.idPac = '"+cita.getIdPac()+"' AND Citas.idMed='"+cita.getIdMed()+"' AND Citas.dia='"+cita.getDia()+"' AND Citas.hora='"+cita.getHora()+"' AND Citas.minn='"+cita.getMinn()+"' AND Citas.estado='Pendiente'");
             ResultSet rs = statement.executeQuery();
             while(rs.next()){
-                citaC = new Cita(rs.getString("idPac"), rs.getString("idMed"), rs.getString("dia"), rs.getString("hora"), rs.getString("minn"));
+                citaC = new Cita(rs.getString("idPac"), rs.getString("idMed"), rs.getString("dia"), rs.getString("hora"), rs.getString("minn"), rs.getString("estado"));
             }
             con.close();
             return citaC;
@@ -214,6 +214,22 @@ public class ConexionBD {
         }
     }
     
+    public Cita busqCitaXEstado(Cita cita){
+        Connection con = null;
+        Cita citaC = null;
+        try {
+            con = ConexionMySQL.ConectarBasedeDatos1();
+            CallableStatement statement = con.prepareCall("SELECT * FROM Citas WHERE Citas.idPac = '"+cita.getIdPac()+"' AND Citas.idMed='"+cita.getIdMed()+"' AND Citas.dia='"+cita.getDia()+"' AND Citas.hora='"+cita.getHora()+"' AND Citas.minn='"+cita.getMinn()+"' AND Citas.estado='"+cita.getEstado()+"'");
+            ResultSet rs = statement.executeQuery();
+            while(rs.next()){
+                citaC = new Cita(rs.getString("idPac"), rs.getString("idMed"), rs.getString("dia"), rs.getString("hora"), rs.getString("minn"), rs.getString("estado"));
+            }
+            con.close();
+            return citaC;
+        } catch (SQLException e) {
+            return null;
+        }
+    }
     public List<Cita> getCitasXMedico(String cedula_med){
         Connection con = null;
         List<Cita> citas = new ArrayList();
@@ -223,7 +239,7 @@ public class ConexionBD {
             ResultSet rs = statement.executeQuery();
             while(rs.next()){
                 Cita cita;
-                cita = new Cita(rs.getString("idPac"), rs.getString("idMed"), rs.getString("dia"), rs.getString("hora"), rs.getString("minn"));
+                cita = new Cita(rs.getString("idPac"), rs.getString("idMed"), rs.getString("dia"), rs.getString("hora"), rs.getString("minn"), rs.getString("estado"));
                 citas.add(cita);
             }
             con.close();
@@ -239,7 +255,19 @@ public class ConexionBD {
             con = ConexionMySQL.ConectarBasedeDatos1();
             Statement statement = con.createStatement();
         
-            statement.executeUpdate("DELETE FROM Citas WHERE Citas.dia='"+cita.getDia()+"' AND Citas.idPac='"+cita.getIdPac()+"' AND Citas.hora='"+cita.getHora()+"' AND Citas.minn= '"+cita.getMinn()+"'");
+            statement.executeUpdate("DELETE FROM Citas WHERE Citas.dia='"+cita.getDia()+"' AND Citas.idPac='"+cita.getIdPac()+"' AND Citas.hora='"+cita.getHora()+"' AND Citas.minn= '"+cita.getMinn()+"' AND Citas.estado='Pendiente'");
+            con.close();
+        }catch (SQLException e) {
+            e.getSQLState();
+        }
+    }
+    public void updateCitas(Cita cita){
+        Connection con = null;
+        try{
+            con = ConexionMySQL.ConectarBasedeDatos1();
+            Statement statement = con.createStatement();
+        
+            statement.executeUpdate("UPDATE Citas SET Citas.estado='Listo' WHERE Citas.dia='"+cita.getDia()+"' AND Citas.idPac='"+cita.getIdPac()+"' AND Citas.hora='"+cita.getHora()+"' AND Citas.minn= '"+cita.getMinn()+"' AND Citas.estado='"+cita.getEstado()+"'");
             con.close();
         }catch (SQLException e) {
             e.getSQLState();

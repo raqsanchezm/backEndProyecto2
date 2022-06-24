@@ -35,12 +35,24 @@ public class Citas {
         }
     }
     @POST
-    @Path("/{dia}/{idPac}/{hora}/{minn}/{idMec}/delete")
+    @Path("/{dia}/{idPac}/{hora}/{minn}/{idMec}/{estado}/delete")
     @Consumes(MediaType.APPLICATION_JSON) 
-    public void deleteCita(@PathParam("dia")String dia, @PathParam("idPac")String idPac, @PathParam("hora")String hora, @PathParam("minn")String minn, @PathParam("idMec")String idMec) {  
+    public void deleteCita(@PathParam("dia")String dia, @PathParam("idPac")String idPac, @PathParam("hora")String hora, @PathParam("minn")String minn, @PathParam("idMec")String idMec, @PathParam("estado")String estado) {  
         try {
-            Cita c = new Cita(idPac,idMec, dia, hora, minn);
+            Cita c = new Cita(idPac,idMec, dia, hora, minn, estado);
             Service.instance().citasDelete(c);
+        } catch (Exception ex) {
+            throw new NotAcceptableException(); 
+        }
+    }
+    
+    @POST
+    @Path("/{dia}/{idPac}/{hora}/{minn}/{idMec}/{estado}/update")
+    @Consumes(MediaType.APPLICATION_JSON) 
+    public void updateCita(@PathParam("dia")String dia, @PathParam("idPac")String idPac, @PathParam("hora")String hora, @PathParam("minn")String minn, @PathParam("idMec")String idMec, @PathParam("estado")String estado) {  
+        try {
+            Cita c = new Cita(idPac,idMec, dia, hora, minn, estado);
+            Service.instance().citasUpdate(c);
         } catch (Exception ex) {
             throw new NotAcceptableException(); 
         }

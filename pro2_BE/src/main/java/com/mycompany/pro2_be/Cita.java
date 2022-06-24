@@ -14,14 +14,18 @@ public class Cita {
     public String dia;
     public String hora;
     public String minn;
+    public String estado;
 
-    public Cita(String idPac, String idMed, String dia, String hora, String minn) {
+    public Cita(String idPac, String idMed, String dia, String hora, String minn, String estado) {
         this.idPac = idPac;
         this.idMed = idMed;
         this.dia = dia;
         this.hora = hora;
         this.minn = minn;
+        this.estado = estado;
     }
+    
+   
 
     public Cita() {
     }
@@ -68,9 +72,19 @@ public class Cita {
         this.minn = minn;
     }
 
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
     @Override
     public String toString() {
-        return "Cita{" + "idPac=" + idPac + ", idMed=" + idMed + ", dia=" + dia + ", hora=" + hora + ", minn=" + minn + '}';
+        return "Cita{" + "idPac=" + idPac + ", idMed=" + idMed + ", dia=" + dia + ", hora=" + hora + ", minn=" + minn + ", estado=" + estado + '}';
     }
+
+    
     
 }

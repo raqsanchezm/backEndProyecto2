@@ -13,10 +13,10 @@ import java.util.List;
 public class main {
     public static void main(String[] args) {
         ConexionBD conn = new ConexionBD();
-        List<Persona> pacientes = conn.getPacXMedico("1");
-        System.out.println(pacientes.toString());
-        Cita cita = new Cita("11", "1", "Jueves", "9", "0");
-        conn.insertCitas(cita);
+        List<Cita> citas = conn.getCitasXMedico("1");
+        System.out.println(citas.toString());
+        Cita cita = new Cita("11", "1", "Jueves", "9", "30", "Listo");
+        System.out.println(conn.busqCitaXEstado(cita).toString());
         
         
         //System.out.println(horarios);
