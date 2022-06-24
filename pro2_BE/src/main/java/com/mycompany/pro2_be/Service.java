@@ -88,7 +88,6 @@ public class Service {
             personas.remove(cedula);
         }
     }
-
     
     public Persona personasCREATE(Persona per)throws Exception {
         if (personas.get(per.getCedula())!=null){
@@ -100,6 +99,15 @@ public class Service {
             return per;
         }
     } 
+    
+    public List<Persona> personaBusqN(String nombre)throws Exception {
+        if (conn.busqPacXNomb(nombre).isEmpty()){
+           throw new Exception ("404-persona no existe");
+        }
+        else{
+              return conn.busqPacXNomb(nombre);
+        }
+    }
     
     public void citasCREATE(Cita c)throws Exception {
         if (conn.busqCita(c) != null){

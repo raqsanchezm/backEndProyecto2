@@ -131,7 +131,16 @@ public class Personas {
         return response.build();
         }
 
-
+    @GET
+    @Path("/{nombre}/busqueda")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Persona> busqNombre(@PathParam("nombre") String nombre) {
+        try {
+            return Service.instance().personaBusqN(nombre);
+        } catch (Exception ex) {
+            throw new NotFoundException();
+        }
+    }
     
     
   

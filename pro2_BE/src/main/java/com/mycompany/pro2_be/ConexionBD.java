@@ -182,6 +182,25 @@ public class ConexionBD {
         }
     }
 
+    public  List<Persona> busqPacXNomb(String nombre){
+        Connection con = null;
+        List<Persona> pacientes = new ArrayList();
+
+        try {
+            con = ConexionMySQL.ConectarBasedeDatos1();
+            CallableStatement statement = con.prepareCall("SELECT * FROM Personas WHERE Personas.nombre = '"+nombre+"'");
+            ResultSet rs = statement.executeQuery();
+            while(rs.next()){
+                Persona paciente;
+                paciente = new Persona(rs.getString("id"), rs.getString("nombre"), rs.getString("sexo"), rs.getString("telefono"), rs.getString("correo"), rs.getString("edad"), rs.getString("cedula_med"));
+                pacientes.add(paciente);
+            }
+            con.close();
+            return pacientes;
+        } catch (SQLException e) {
+            return null;
+        }
+    }
     /*----------------------Citas----------------------*/
     
     public void insertCitas(Cita cita){
