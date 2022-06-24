@@ -273,4 +273,23 @@ public class ConexionBD {
             e.getSQLState();
         }
     }
+    
+    public List<Cita> getCitasXPacientes(String cedula_pac){
+        Connection con = null;
+        List<Cita> citas = new ArrayList();
+        try {
+            con = ConexionMySQL.ConectarBasedeDatos1();
+            CallableStatement statement = con.prepareCall("SELECT * FROM Citas WHERE Citas.idPac = '"+cedula_pac+"'");
+            ResultSet rs = statement.executeQuery();
+            while(rs.next()){
+                Cita cita;
+                cita = new Cita(rs.getString("idPac"), rs.getString("idMed"), rs.getString("dia"), rs.getString("hora"), rs.getString("minn"), rs.getString("estado"), rs.getString("descrip"));
+                citas.add(cita);
+            }
+            con.close();
+            return citas;
+        } catch (SQLException e) {
+            return null;
+        }
+    }
 }
