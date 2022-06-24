@@ -153,7 +153,6 @@ public class Service {
         }
     }
     
- 
     
     public void medicosDELETE(String cedula) throws Exception{
         if(medicos.get(cedula) == null){

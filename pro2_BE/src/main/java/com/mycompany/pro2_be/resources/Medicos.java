@@ -32,7 +32,7 @@ import org.glassfish.jersey.media.multipart.FormDataParam;
  */
 @Path("/medicos")
 public class Medicos {
-    String location = "C:\\fotos";
+    String location="D:\\Pictures\\ImagenesProyecto";
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
