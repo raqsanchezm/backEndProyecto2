@@ -190,7 +190,7 @@ public class ConexionBD {
             con = ConexionMySQL.ConectarBasedeDatos1();
             Statement statement = con.createStatement();
         
-            statement.executeUpdate("INSERT INTO Citas(idPac, idMed, dia, hora, minn, estado) values('"+cita.getIdPac()+"', '"+cita.getIdMed()+"', '"+cita.getDia()+"', '"+cita.getHora()+"', '"+cita.getMinn()+"', 'Pendiente')");
+            statement.executeUpdate("INSERT INTO Citas(idPac, idMed, dia, hora, minn, estado, descrip) values('"+cita.getIdPac()+"', '"+cita.getIdMed()+"', '"+cita.getDia()+"', '"+cita.getHora()+"', '"+cita.getMinn()+"', 'Pendiente', 'Pendiente')");
             con.close();
         }catch (SQLException e) {
             e.getSQLState();
@@ -205,7 +205,7 @@ public class ConexionBD {
             CallableStatement statement = con.prepareCall("SELECT * FROM Citas WHERE Citas.idPac = '"+cita.getIdPac()+"' AND Citas.idMed='"+cita.getIdMed()+"' AND Citas.dia='"+cita.getDia()+"' AND Citas.hora='"+cita.getHora()+"' AND Citas.minn='"+cita.getMinn()+"' AND Citas.estado='Pendiente'");
             ResultSet rs = statement.executeQuery();
             while(rs.next()){
-                citaC = new Cita(rs.getString("idPac"), rs.getString("idMed"), rs.getString("dia"), rs.getString("hora"), rs.getString("minn"), rs.getString("estado"));
+                citaC = new Cita(rs.getString("idPac"), rs.getString("idMed"), rs.getString("dia"), rs.getString("hora"), rs.getString("minn"), rs.getString("estado"), rs.getString("descrip"));
             }
             con.close();
             return citaC;
@@ -222,7 +222,7 @@ public class ConexionBD {
             CallableStatement statement = con.prepareCall("SELECT * FROM Citas WHERE Citas.idPac = '"+cita.getIdPac()+"' AND Citas.idMed='"+cita.getIdMed()+"' AND Citas.dia='"+cita.getDia()+"' AND Citas.hora='"+cita.getHora()+"' AND Citas.minn='"+cita.getMinn()+"' AND Citas.estado='"+cita.getEstado()+"'");
             ResultSet rs = statement.executeQuery();
             while(rs.next()){
-                citaC = new Cita(rs.getString("idPac"), rs.getString("idMed"), rs.getString("dia"), rs.getString("hora"), rs.getString("minn"), rs.getString("estado"));
+                citaC = new Cita(rs.getString("idPac"), rs.getString("idMed"), rs.getString("dia"), rs.getString("hora"), rs.getString("minn"), rs.getString("estado"), rs.getString("estado"));
             }
             con.close();
             return citaC;
@@ -239,7 +239,7 @@ public class ConexionBD {
             ResultSet rs = statement.executeQuery();
             while(rs.next()){
                 Cita cita;
-                cita = new Cita(rs.getString("idPac"), rs.getString("idMed"), rs.getString("dia"), rs.getString("hora"), rs.getString("minn"), rs.getString("estado"));
+                cita = new Cita(rs.getString("idPac"), rs.getString("idMed"), rs.getString("dia"), rs.getString("hora"), rs.getString("minn"), rs.getString("estado"), rs.getString("descrip"));
                 citas.add(cita);
             }
             con.close();
@@ -267,7 +267,7 @@ public class ConexionBD {
             con = ConexionMySQL.ConectarBasedeDatos1();
             Statement statement = con.createStatement();
         
-            statement.executeUpdate("UPDATE Citas SET Citas.estado='Listo' WHERE Citas.dia='"+cita.getDia()+"' AND Citas.idPac='"+cita.getIdPac()+"' AND Citas.hora='"+cita.getHora()+"' AND Citas.minn= '"+cita.getMinn()+"' AND Citas.estado='"+cita.getEstado()+"'");
+            statement.executeUpdate("UPDATE Citas SET Citas.estado='Listo', Citas.descrip='"+cita.getDescrip()+"' WHERE Citas.dia='"+cita.getDia()+"' AND Citas.idPac='"+cita.getIdPac()+"' AND Citas.hora='"+cita.getHora()+"' AND Citas.minn= '"+cita.getMinn()+"' AND Citas.estado='"+cita.getEstado()+"'");
             con.close();
         }catch (SQLException e) {
             e.getSQLState();

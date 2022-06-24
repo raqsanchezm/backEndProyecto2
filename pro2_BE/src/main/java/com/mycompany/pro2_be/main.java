@@ -15,9 +15,9 @@ public class main {
         ConexionBD conn = new ConexionBD();
         List<Cita> citas = conn.getCitasXMedico("1");
         System.out.println(citas.toString());
-        Cita cita = new Cita("11", "1", "Jueves", "9", "30", "Listo");
+        Cita cita = new Cita("11", "1", "Jueves", "9", "30", "Pendiente", "Se atencio la consulta");
         System.out.println(conn.busqCitaXEstado(cita).toString());
-        
+        conn.updateCitas(cita);
         
         //System.out.println(horarios);
     }
