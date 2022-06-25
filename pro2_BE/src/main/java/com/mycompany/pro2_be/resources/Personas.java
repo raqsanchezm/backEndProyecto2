@@ -1,5 +1,6 @@
 package com.mycompany.pro2_be.resources;
 
+import com.mycompany.pro2_be.Antecedente;
 import com.mycompany.pro2_be.Persona;
 import com.mycompany.pro2_be.Service;
 import java.util.List;
@@ -107,29 +108,6 @@ public class Personas {
             throw new NotFoundException(); 
         }
     }
-    
-    
-
-        @POST
-        @Consumes(MediaType.MULTIPART_FORM_DATA)
-        @Path("{cedula}/pdf")
-        public void addPdf(@PathParam("cedula") String cedula, @FormDataParam("pdf") InputStream in) {
-        try{
-        OutputStream out = new FileOutputStream(new File(docs + cedula));
-        in.transferTo(out);
-        out.close();
-        } catch (Exception ex) {
-        throw new NotAcceptableException();
-        }
-        }
-        @GET
-        @Path("{cedula}/pdf")
-        @Produces("application/pdf")
-        public Response getPdf(@PathParam("cedula") String cedula) throws IOException {
-        File file = new File(docs+cedula);
-        Response.ResponseBuilder response = Response.ok((Object) file);
-        return response.build();
-        }
 
     @GET
     @Path("/{nombre}/busqueda")
@@ -141,7 +119,53 @@ public class Personas {
             throw new NotFoundException();
         }
     }
+ 
+
+    @POST
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @Path("{cedula}/pdf")
+    public void addPdf(@PathParam("cedula") String cedula, @FormDataParam("pdf") InputStream in) {
+        try{
+                OutputStream out = new FileOutputStream(new File(docs + cedula));
+                in.transferTo(out);
+                out.close();
+            } catch (Exception ex) {
+                throw new NotAcceptableException();
+            }
+    }
+
+
+    @GET
+    @Path("{cedula}/pdf")
+    @Produces("application/pdf")
+    public Response getPdf(@PathParam("cedula") String cedula) throws IOException {
+        File file = new File(docs+cedula);
+        Response.ResponseBuilder response = Response.ok((Object) file);
+        return response.build();
+    }    
+
+
+    @GET
+    @Path("{id}/antecedentes")
+    @Produces({MediaType.APPLICATION_JSON})
+    public Antecedente getAnte(@PathParam("id") String id) throws IOException {
+        try{
+            return Service.instance().anteREAD(id);
+        }catch (Exception ex){
+            throw new NotFoundException();
+        }
+    }
     
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("{id}/antecedentes")
+    public void createAnte(Antecedente p) {
+        try {
+            Service.instance().anteCREATE(p);
+        } catch (Exception ex) {
+            throw new NotAcceptableException();
+        }
+    }
     
   
 }

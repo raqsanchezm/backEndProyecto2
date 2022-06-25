@@ -311,4 +311,48 @@ public class ConexionBD {
             return null;
         }
     }
+    /*--------------Antecedentes-----------------*/
+    
+    public void insertAnt(Antecedente per){
+        Connection con = null;
+        try{
+            con = ConexionMySQL.ConectarBasedeDatos1();
+            Statement statement = con.createStatement();
+            statement.executeUpdate("INSERT INTO Antecedentes(id, tabaco, alcohol,drogas, alergias)"
+            + " values ('"+per.getId()+"', '"+per.getTabaco()+"','"+per.getAlcohol()+"', '"+per.getDrogas()+"', '"+per.getAlergias() +"')");
+            con.close();
+        }catch (SQLException e) {
+            e.getSQLState();
+        }
+    }
+    public Antecedente getAntXMPaci(String idPaci){
+        Connection con = null;
+        Antecedente ante= new Antecedente();
+        try {
+            con = ConexionMySQL.ConectarBasedeDatos1();
+            CallableStatement statement = con.prepareCall("SELECT * FROM Antecedentes WHERE Personas.id = '"+idPaci+"'");
+            ResultSet rs = statement.executeQuery();
+            while(rs.next()){
+                ante = new Antecedente(rs.getString("id"), rs.getString("tabaco"), rs.getString("alcohol"), rs.getString("drogas"), rs.getString("alergias"));
+            }
+            con.close();
+            return ante;
+        } catch (SQLException e) {
+            return null;
+        }
+    }
+
+    public void updateAnt(String id){
+        Connection con = null;
+        try{
+            con = ConexionMySQL.ConectarBasedeDatos1();
+            Statement statement = con.createStatement();
+            statement.executeUpdate("UPDATE Antecedentes SET estado='activo' WHERE id='"+id+"'");
+            con.close();
+        }catch (SQLException e) {
+            e.getSQLState();
+        }
+    }
+
+
 }

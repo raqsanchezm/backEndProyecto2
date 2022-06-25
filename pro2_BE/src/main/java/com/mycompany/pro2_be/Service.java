@@ -23,10 +23,13 @@ public class Service {
     
     HashMap<String,Persona> personas;
     HashMap<String,Medico> medicos;
+    HashMap<String,Antecedente> antecedentes;
+
     
     private Service(){
         personas=new HashMap<>();
         medicos=new HashMap<>();
+        antecedentes = new HashMap<>();
    }
         
   
@@ -199,4 +202,27 @@ public class Service {
             throw new Exception("405-Medico no existe");
         }    }
 
+     public List<Antecedente> anteREAD(){
+        return new ArrayList(antecedentes.values());
+    }
+
+    public Antecedente anteREAD(String id)throws Exception {
+        if (antecedentes.get(id)!=null){
+            return antecedentes.get(id);
+        }
+        else{
+            throw new Exception ("404-antecedente no existe");
+        }
+    }
+    
+    public Antecedente anteCREATE(Antecedente per)throws Exception {
+        if (antecedentes.get(per.getId())!=null){
+            throw new Exception ("406-Antecedente ya existe");
+        }
+        else{
+            conn.insertAnt(per);
+            //antecedentes.put(per.getId(),per);
+            return per;
+        }
+    }
 }
