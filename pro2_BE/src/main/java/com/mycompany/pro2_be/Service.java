@@ -192,4 +192,11 @@ public class Service {
         }
     }
 
+    public List<Cita> citasREADCitasPacs(String nombre) throws Exception {
+        if(conn.getCitasXPacientes(nombre) != null){
+            return conn.getCitasXPacientes(nombre);
+        }else{
+            throw new Exception("405-Medico no existe");
+        }    }
+
 }

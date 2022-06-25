@@ -73,6 +73,16 @@ public class Citas {
         }catch (Exception ex){
             throw new NotFoundException();
         }
-   
+    } 
+    
+    @GET
+    @Path("/{nombre}/pacientes")
+    @Produces({MediaType.APPLICATION_JSON})
+    public List<Cita> readCitasPacs(@PathParam("nombre")String nombre){
+        try{
+            return Service.instance().citasREADCitasPacs(nombre);
+        }catch (Exception ex){
+            throw new NotFoundException();
+        }
     } 
 }

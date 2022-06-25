@@ -293,12 +293,12 @@ public class ConexionBD {
         }
     }
     
-    public List<Cita> getCitasXPacientes(String cedula_pac){
+    public List<Cita> getCitasXPacientes(String nombre){
         Connection con = null;
         List<Cita> citas = new ArrayList();
         try {
             con = ConexionMySQL.ConectarBasedeDatos1();
-            CallableStatement statement = con.prepareCall("SELECT * FROM Citas WHERE Citas.idPac = '"+cedula_pac+"'");
+            CallableStatement statement = con.prepareCall("SELECT * FROM Citas c, Personas pac where pac.nombre = '"+nombre+"' AND pac.id = c.idPac");
             ResultSet rs = statement.executeQuery();
             while(rs.next()){
                 Cita cita;
